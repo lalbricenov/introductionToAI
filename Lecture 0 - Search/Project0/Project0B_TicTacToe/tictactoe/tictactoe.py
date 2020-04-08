@@ -96,11 +96,32 @@ def utility(board):
         return 0
 
 
+def boardHash(board):
+    result = 0
+    for i in range(3):
+        for j in range(3):
+            result += (2 if board[i][j] == X else (1 if board[i]
+                                                   [j] == O else 0)) * pow(3, 3 * i + j)  # base 3
+    return result
+
+
+maxSize = boardHash([[X, X, X], [X, X, X], [X, X, X]])
+minValues = []
+maxValues = []
+for i in range(maxSize + 1):  # including maxSize
+    minValues.append(-2)
+    maxValues.append(-2)
+
+
 def minValue(board, currentMax):
     # currentMax is the value that X has currently in his maximization
     # The player that tries to minimize is O
-    if terminal(board):
-        return utility(board)
+    pos = boardHash(board)
+    if minValues[pos] != -2:  # If it was already calculated
+        return minValues[pos]
+    elif terminal(board):
+        minValues[pos] = utility(board)
+        return minValues[pos]
     else:
         # actionsNow = actions(board)
         minV = float("inf")
@@ -109,13 +130,18 @@ def minValue(board, currentMax):
             minV = min(value, minV)
             if minV < currentMax:
                 break
+        minValues[pos] = minV
         return minV
 
 
 def maxValue(board, currentMin):
     # The player that tries to maximize is X
-    if terminal(board):
-        return utility(board)
+    pos = boardHash(board)
+    if maxValues[pos] != -2:  # If it was already calculated
+        return maxValues[pos]
+    elif terminal(board):
+        maxValues[pos] = utility(board)
+        return maxValues[pos]
     else:
         maxV = float("-inf")
         for action in actions(board):
@@ -123,6 +149,7 @@ def maxValue(board, currentMin):
             maxV = max(maxV, value)
             if maxV > currentMin:
                 break
+        maxValues[pos] = maxV
         return maxV
 
 
