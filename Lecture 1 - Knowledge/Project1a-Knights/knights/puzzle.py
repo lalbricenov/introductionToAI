@@ -78,9 +78,9 @@ knowledge2 = And(
 knowledge3 = And(
     Or(  # A says either "I am a knight." or "I am a knave.", but you don't know which.
         # If A is a knight
-        And(AKnight, Or(And(AKnave, Not(AKnight)), And(Not(AKnave), AKnight))),
+        And(AKnight, Or(AKnave, AKnight)),
         # If A is a knave
-        And(AKnave, Not(Or(And(AKnave, Not(AKnight)), And(Not(AKnave), AKnight))))
+        And(AKnave, Not(Or(AKnave, AKnight)))
     ),
     Or(  # B says "A said 'I am a knave'."
         # If B is a knight
