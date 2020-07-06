@@ -17,6 +17,10 @@ knowledge0 = And(
         And(AKnight, And(AKnight, AKnave)),
         # If A is a knave
         And(AKnave, Not(And(AKnight, AKnave)))
+    ),
+    Or(
+        And(AKnave, Not(AKnight)),
+        And(Not(AKnave), AKnight)
     )
 )
 
@@ -29,6 +33,14 @@ knowledge1 = And(
         And(AKnight, And(AKnave, BKnave)),
         # If A is a knave
         And(AKnave, Not(And(AKnave, BKnave)))
+    ),
+    Or(
+        And(AKnave, Not(AKnight)),
+        And(Not(AKnave), AKnight)
+    ),
+    Or(
+        And(BKnave, Not(BKnight)),
+        And(Not(BKnave), BKnight)
     )
 )
 
@@ -47,6 +59,14 @@ knowledge2 = And(
         And(BKnight, Or(And(AKnave, BKnight), And(AKnight, BKnave))),
         # If B is a knave
         And(BKnave, Not(Or(And(AKnave, BKnight), And(AKnight, BKnave))))
+    ),
+    Or(
+        And(AKnave, Not(AKnight)),
+        And(Not(AKnave), AKnight)
+    ),
+    Or(
+        And(BKnave, Not(BKnight)),
+        And(Not(BKnave), BKnight)
     )
 )
 
@@ -58,22 +78,18 @@ knowledge2 = And(
 knowledge3 = And(
     Or(  # A says either "I am a knight." or "I am a knave.", but you don't know which.
         # If A is a knight
-        And(AKnight, Or(AKnave, AKnight)),
+        And(AKnight, Or(And(AKnave, Not(AKnight)), And(Not(AKnave), AKnight))),
         # If A is a knave
-        And(AKnave, Not(Or(AKnave, AKnight)))
+        And(AKnave, Not(Or(And(AKnave, Not(AKnight)), And(Not(AKnave), AKnight))))
     ),
     Or(  # B says "A said 'I am a knave'."
         # If B is a knight
         And(BKnight, Or(
-            And(AKnight, BKnave),
-            And(AKnave, Not(BKnave))
+            And(AKnight, AKnave),
+            And(AKnave, Not(AKnave))
         )),
         # If B is a knave, A didnt say anything
         BKnave
-        # And(BKnave, Not(Or(
-        #     And(AKnight, BKnave),
-        #     And(AKnave, Not(BKnave))
-        # )))
     ),
     Or(  # B says "C is a knave."
         # If B is a knight
@@ -86,6 +102,18 @@ knowledge3 = And(
         And(CKnight, AKnight),
         # If C is a knave
         And(CKnave, Not(AKnight))
+    ),
+    Or(
+        And(AKnave, Not(AKnight)),
+        And(Not(AKnave), AKnight)
+    ),
+    Or(
+        And(BKnave, Not(BKnight)),
+        And(Not(BKnave), BKnight)
+    ),
+    Or(
+        And(CKnave, Not(CKnight)),
+        And(Not(CKnave), CKnight)
     )
 
 )
