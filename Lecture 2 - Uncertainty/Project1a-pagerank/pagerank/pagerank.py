@@ -143,8 +143,8 @@ def iterate_pagerank(corpus, damping_factor):
             change = abs(ranks[pageP] - oldRanks[pageP])
             if change > maxChange:
                 maxChange = change
-        print(ranks, end ="\t")
-        print(f"SUMA: {sum(ranks.values())}")
+        # print(ranks, end ="\t")
+        # print(f"SUMA: {sum(ranks.values())}")
     return ranks
 
 
