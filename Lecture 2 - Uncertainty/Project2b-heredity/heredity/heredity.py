@@ -263,12 +263,6 @@ def joint_probability(people, one_gene, two_genes, have_trait):
                 if event[person]["trait"]:
                     probability *= PROBS["trait"][2][True]
 
-            
-    # print(f"ONE GENE: {one_gene}")
-    # print(f"TWO GENE: {two_genes}")
-    # print(f"HAVE TRAIT: {have_trait}")
-    # print(f"Event: {event} - Probability: {probability}")
-        
     return probability
 
 
@@ -305,10 +299,6 @@ def normalize(probabilities):
         sumTrait = sum(probabilities[person]['trait'].values())
         for valueTrait in probabilities[person]['trait']:
             probabilities[person]['trait'][valueTrait] /= sumTrait
-    # for person in probabilities:
-    #     sumGene = sum(probabilities[person]['gene'].values())
-    #     sumTrait = sum(probabilities[person]['trait'].values())
-    #     print(f"Suma genes: {sumGene}, suma traits: {sumTrait}")
 
 
 if __name__ == "__main__":
