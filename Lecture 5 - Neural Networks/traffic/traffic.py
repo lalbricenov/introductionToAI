@@ -97,13 +97,22 @@ def get_model():
     # Dense means that each of the nodes in the layer will be connected to every other node in the previous layer
     model = tf.keras.models.Sequential(
         [
-            # Learn 32 different filters
+            tf.keras.layers.experimental.preprocessing.Rescaling(1./255),
+
+            # Learn 32 different filters and make pooling
             tf.keras.layers.Conv2D(
                 32, (3, 3), input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)),
-            # MaxPooling2D reduces the size of the images
+
             tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
+
+            # Learn 32 different filters and make pooling a second time
+            tf.keras.layers.Conv2D(
+                32, (3, 3), input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)),
+            tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
+
             tf.keras.layers.Flatten(input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)),
             tf.keras.layers.Dense(128, activation='relu'),
+            tf.keras.layers.Dropout(0.2),
             tf.keras.layers.Dense(NUM_CATEGORIES, activation="sigmoid")
         ]
     )

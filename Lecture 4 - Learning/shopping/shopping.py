@@ -32,7 +32,6 @@ def main():
     print(f"True Positive Rate: {100 * sensitivity:.2f}%")
     print(f"True Negative Rate: {100 * specificity:.2f}%")
 
-
 def load_data(filename):
     """
     Load shopping data from a CSV file `filename` and convert into a list of
